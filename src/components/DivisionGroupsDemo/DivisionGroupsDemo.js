@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
+import { motion, LayoutGroup } from 'framer-motion';
 
 import { range } from '@/utils';
 import Card from '@/components/Card';
@@ -10,6 +11,7 @@ import Equation from './Equation';
 import styles from './DivisionGroupsDemo.module.css';
 
 function DivisionGroupsDemo({ numOfItems = 12, initialNumOfGroups = 1, includeRemainderArea }) {
+  const id = React.useId();
   const [numOfGroups, setNumOfGroups] = React.useState(initialNumOfGroups);
 
   const numOfItemsPerGroup = Math.floor(numOfItems / numOfGroups);
@@ -43,15 +45,32 @@ function DivisionGroupsDemo({ numOfItems = 12, initialNumOfGroups = 1, includeRe
       </header>
 
       <div className={styles.demoWrapper}>
+        {/* <LayoutGroup> */}
         <div className={clsx(styles.demoArea)} style={gridStructure}>
           {range(numOfGroups).map((groupIndex) => (
             <div key={groupIndex} className={styles.group}>
               {range(numOfItemsPerGroup).map((index) => {
-                return <div key={index} className={styles.item} />;
+                const number = numOfItemsPerGroup * groupIndex + index;
+                const layoutId = `${id}-${number}`;
+                console.log(layoutId);
+                return (
+                  <motion.div
+                    key={layoutId}
+                    layoutId={layoutId}
+                    layout="position"
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 60,
+                    }}
+                    className={styles.item}
+                  />
+                );
               })}
             </div>
           ))}
         </div>
+        {/* </LayoutGroup> */}
       </div>
 
       {includeRemainderArea && (
