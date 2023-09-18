@@ -45,32 +45,32 @@ function DivisionGroupsDemo({ numOfItems = 12, initialNumOfGroups = 1, includeRe
       </header>
 
       <div className={styles.demoWrapper}>
-        {/* <LayoutGroup> */}
-        <div className={clsx(styles.demoArea)} style={gridStructure}>
-          {range(numOfGroups).map((groupIndex) => (
-            <div key={groupIndex} className={styles.group}>
-              {range(numOfItemsPerGroup).map((index) => {
-                const number = numOfItemsPerGroup * groupIndex + index;
-                const layoutId = `${id}-${number}`;
-                console.log(layoutId);
-                return (
-                  <motion.div
-                    key={layoutId}
-                    layoutId={layoutId}
-                    layout="position"
-                    transition={{
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 60,
-                    }}
-                    className={styles.item}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </div>
-        {/* </LayoutGroup> */}
+        <LayoutGroup>
+          <div className={clsx(styles.demoArea)} style={gridStructure}>
+            {range(numOfGroups).map((groupIndex) => (
+              <div key={groupIndex} className={styles.group}>
+                {range(numOfItemsPerGroup).map((index) => {
+                  const number = numOfItemsPerGroup * groupIndex + index;
+                  const layoutId = `${id}-${number}`;
+                  console.log(layoutId);
+                  return (
+                    <motion.div
+                      key={layoutId}
+                      layoutId={layoutId}
+                      layout="position"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 300,
+                        damping: 60,
+                      }}
+                      className={styles.item}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </LayoutGroup>
       </div>
 
       {includeRemainderArea && (
