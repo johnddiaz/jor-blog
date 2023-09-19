@@ -52,7 +52,6 @@ function DivisionGroupsDemo({ numOfItems = 12, initialNumOfGroups = 1, includeRe
                 {range(numOfItemsPerGroup).map((index) => {
                   const number = numOfItemsPerGroup * groupIndex + index;
                   const layoutId = `${id}-${number}`;
-                  console.log(layoutId);
                   return (
                     <motion.div
                       key={layoutId}
