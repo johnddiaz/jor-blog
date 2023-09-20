@@ -7,18 +7,28 @@ import { loadBlogPost } from '@/helpers/file-helpers';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import CodeSnippet from '@/components/CodeSnippet/CodeSnippet';
 import { lazyComponents } from './lazy-components';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }) {
-  const post = await loadBlogPost(params.postSlug);
+  try {
+    const post = await loadBlogPost(params.postSlug);
 
-  return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.abstract,
-  };
+    return {
+      title: post.frontmatter.title,
+      description: post.frontmatter.abstract,
+    };
+  } catch (e) {
+    return {};
+  }
 }
 
 async function BlogPost({ params }) {
-  const post = await loadBlogPost(params.postSlug);
+  let post;
+  try {
+    post = await loadBlogPost(params.postSlug);
+  } catch (e) {
+    notFound();
+  }
 
   return (
     <article className={styles.wrapper}>
